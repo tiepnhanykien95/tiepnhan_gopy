@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiếp nhận ý kiến người dân</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 20px 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 8px;
+      background: #007bff;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .success {
+      display: none;
+      text-align: center;
+      color: green;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Góp ý & phản ánh</h2>
+    <form id="feedbackForm">
+      <label>Họ tên</label>
+      <input type="text" name="name" required>
+
+      <label>Số điện thoại</label>
+      <input type="text" name="phone">
+
+      <label>Loại phản ánh</label>
+      <select name="type">
+        <option>Hạ tầng</option>
+        <option>Môi trường</option>
+        <option>An ninh</option>
+        <option>Khác</option>
+      </select>
+
+      <label>Nội dung góp ý</label>
+      <textarea name="content" rows="5" required></textarea>
+     
+
+      <button type="submit">Gửi phản ánh</button>
+    </form>
+    <div class="success" id="successMsg">Gửi thành công! Cảm ơn bạn.</div>
+  </div>
+
+  <script>
+    const form = document.getElementById('feedbackForm');
+    const successMsg = document.getElementById('successMsg');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+  try{
+      // Demo: gửi tới Google Apps Script hoặc API backend
+      await fetch('https://script.google.com/macros/s/AKfycbzwL4r9ycFV-3XtZHYSdZX8KIG86paU7Ou_GTFaOXYsMvIWTgmrJGzbTPnbTqkT3JTo/exec', {
+         method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: form.name.value,
+            phone: form.phone.value,
+            type: form.type.value,
+            content: form.content.value
+          })
+        });
+
+      form.reset();
+      successMsg.style.display = 'block';
+
+  } catch (err) {
+    alert('Lỗi gửi dữ liệu!');
+    console.error(err);
+  }
+    });
+  </script>
+</body>
+</html>
