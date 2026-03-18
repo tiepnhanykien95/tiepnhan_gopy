@@ -68,12 +68,7 @@
       <input type="text" name="phone">
 
       <label>Loại phản ánh</label>
-      <select name="type">
-        <option>Hạ tầng</option>
-        <option>Môi trường</option>
-        <option>An ninh</option>
-        <option>Khác</option>
-      </select>
+      <input type="text" name="type">
 
       <label>Nội dung góp ý</label>
       <textarea name="content" rows="5" required></textarea>
@@ -94,18 +89,11 @@
       const formData = new FormData(form);
   try{
       // Demo: gửi tới Google Apps Script hoặc API backend
-      await fetch('https://script.google.com/macros/s/AKfycbzwL4r9ycFV-3XtZHYSdZX8KIG86paU7Ou_GTFaOXYsMvIWTgmrJGzbTPnbTqkT3JTo/exec', {
-         method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            name: form.name.value,
-            phone: form.phone.value,
-            type: form.type.value,
-            content: form.content.value
-          })
-        });
+      await fetch('https://script.google.com/macros/s/AKfycbyGMOcm4TroP3H_WP_ydTAIs8Ih2VCDDA-hBZU5LBpdEXQTAj94rQnANyEi0RKJ2rXRlA/exec', {
+            method: 'POST',
+            body: formData
+          });
+
 
       form.reset();
       successMsg.style.display = 'block';
